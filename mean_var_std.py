@@ -9,17 +9,20 @@ def calculate(list):
     #Converting into 3x3 NumPy Array
     matrix = np.array(list).reshape((3,3))
     
+    #Some settings to use for creating the dictionary.
+    properties = ['mean', 'variance', 'standard deviation', 'max', 'min', 'sum']
+    operations = ['mean', 'var', 'std', 'max', 'min', 'sum']
+    spec_axis = [0, 1, None]
+
     #Creating Dictionary
-    properties = ['mean', 'var', 'std', 'max', 'min', 'sum']
-    operations = [0, 1, None]
     calculations = dict() #or {}
 
-    for p in properties:
+    for index, p in enumerate(properties):
         calculations[p] = [] #Initially Empty Value
 
-        for o in operations:
+        for a in spec_axis:
             calculations[p].append(
-                (getattr(matrix, p)(axis=o)).tolist()
+                (getattr(matrix, operations[index])(axis=a)).tolist()
             )
 
     return calculations
